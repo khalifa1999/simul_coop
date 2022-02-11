@@ -1,20 +1,38 @@
 from tkinter import *
+from tkinter import filedialog
+import pyautogui
+
+
+
+
 
 root=Tk()
 root.title("Simulation cooperative sonatel")
-root.geometry("1092x680")
-scrollbar = Scrollbar(root)
-scrollbar.pack( side = RIGHT, fill = Y )
 
-#first part CALCUL DU COUT GLOBAL
-# Remove text from label
+root.geometry("1920x1080")
+root.configure(background='orange')
 
 
-titre_un=Label(root, text="CONSTRUCTION ou TERRAIN + CONSTRUCTION ou ACQUISITION BIEN IMMOBILIER", font="arial 15 bold").place(x=100,y=25)
 
-cout_terrain = Label(root, text="Cout du terrain", font="arial 15")
-cout_construction = Label(root, text="Cout de la construction", font="arial 15")
-cout_acquis = Label(root, text="Cout d'acquisition du bien immo.", font="arial 15")
+
+
+def takeScreenshot():
+    myScreenshot = pyautogui.screenshot()
+    
+    file_path = filedialog.asksaveasfilename(defaultextension='.png')
+    
+    myScreenshot.save(file_path)
+
+myButton = Button(root, text="Capture d\'ecran",command=takeScreenshot,bg='green',fg='white',font=10)
+myButton.place(x=800,y=600)
+
+
+
+titre_un=Label(root, text="CONSTRUCTION ou TERRAIN + CONSTRUCTION ou ACQUISITION BIEN IMMOBILIER", bg='orange',fg='white',font=10).place(x=100,y=25)
+
+cout_terrain = Label(root, text="Cout du terrain", bg='orange',fg='white',font=10)
+cout_construction = Label(root, text="Cout de la construction",bg='orange',fg='white',font=10)
+cout_acquis = Label(root, text="Cout d'acquisition du bien immo.", bg='orange',fg='white',font=10)
 
 cout_terrain.place(x=100,y=50)
 cout_construction.place(x=100,y=100)
@@ -24,9 +42,9 @@ principalValue = StringVar(root, value = 0)
 rateValue = StringVar(root, value = 0)
 timeValue = StringVar(root, value = 0)
 
-ct_entry=Entry(root,textvariable=principalValue, font="arial 20", width=10)
-cc_entry=Entry(root,textvariable=rateValue, font="arial 20", width=10)
-ca_entry=Entry(root,textvariable=timeValue, font="arial 20", width=10)
+ct_entry=Entry(root,textvariable=principalValue, bg='orange',fg='white',font=10)
+cc_entry=Entry(root,textvariable=rateValue, bg='orange',fg='white',font=10)
+ca_entry=Entry(root,textvariable=timeValue,bg='orange',fg='white',font=10)
 
 ct_entry.place(x=400,y=50)
 cc_entry.place(x=400,y=100)
@@ -96,11 +114,11 @@ def remove_text():
 
 titre_DEUX=Label(root, text="Apport agent", font="arial 15 bold").place(x=100,y=200)
 
-apport_terrain = Label(root, text="Apport terrain", font="arial 15")
-apport_felson = Label(root, text="Apport Felson", font="arial 15")
-pret_banquaire = Label(root, text="Pret banque", font="arial 15")
-app_num = Label(root, text="Apport numeraire", font="arial 15")
-app_tr = Label(root, text="Apport travaux realises", font="arial 15")
+apport_terrain = Label(root, text="Apport terrain",bg='orange',fg='white',font=10)
+apport_felson = Label(root, text="Apport Felson", bg='orange',fg='white',font=10)
+pret_banquaire = Label(root, text="Pret banque", bg='orange',fg='white',font=10)
+app_num = Label(root, text="Apport numeraire", bg='orange',fg='white',font=10)
+app_tr = Label(root, text="Apport travaux realises",bg='orange',fg='white',font=10)
 
 apport_terrain.place(x=100,y=250)
 apport_felson.place(x=100,y=300)
@@ -114,11 +132,11 @@ pbValue = StringVar(root, value = 0)
 anValue = StringVar(root, value = 0)
 atrValue = StringVar(root, value = 0)
 
-at_entry=Entry(root,textvariable=atValue, font="arial 20", width=10)
-af_entry=Entry(root,textvariable=afValue, font="arial 20", width=10)
-pb_entry=Entry(root,textvariable=pbValue, font="arial 20", width=10)
-an_entry=Entry(root,textvariable=anValue, font="arial 20", width=10)
-atr_entry=Entry(root,textvariable=atrValue, font="arial 20", width=10)
+at_entry=Entry(root,textvariable=atValue,bg='orange',fg='white',font=10)
+af_entry=Entry(root,textvariable=afValue, bg='orange',fg='white',font=10)
+pb_entry=Entry(root,textvariable=pbValue, bg='orange',fg='white',font=10)
+an_entry=Entry(root,textvariable=anValue, bg='orange',fg='white',font=10)
+atr_entry=Entry(root,textvariable=atrValue, bg='orange',fg='white',font=10)
 
 at_entry.place(x=400,y=250)
 af_entry.place(x=400,y=300)
@@ -135,11 +153,11 @@ atr_entry.place(x=400,y=450)
 
 #bouttons
 
-Button(text='OUTPUT', font='arial 15', command=coutApport).place(x=600,y=200)
-reset = Button(root,text='reset' ,font='arial 15' ,command=remove_text)
-reset.place(x= 700,y=200)
+Button(text='sortie',bg='green',fg='white',font=10, command=coutApport).place(x=600,y=600)
+reset = Button(root,text='actualiser' ,bg='green',fg='white',font=10 ,command=remove_text)
+reset.place(x= 700,y=600)
 
-Button(root,text='exit',command=lambda:exit(),font="arial 15",width=0).place(x=400,y=600)
+Button(root,text='exit',command=lambda:exit(),bg='green',fg='white',font=10,width=0).place(x=400,y=650)
 
 
 
