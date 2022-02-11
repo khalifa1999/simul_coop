@@ -1,6 +1,8 @@
 from tkinter import *
 from tkinter import filedialog
 import pyautogui
+from PIL import ImageTk, Image
+import os
 
 
 
@@ -10,8 +12,12 @@ root=Tk()
 root.title("Simulation cooperative sonatel")
 
 root.geometry("1920x1080")
-root.configure(background='orange')
+#root.configure(background='orange')
 
+
+img = ImageTk.PhotoImage(Image.open("nati.jpg"))
+panel = Label(root, image = img)
+panel.pack(side = "bottom", fill = "both", expand = "yes")
 
 
 
@@ -23,12 +29,12 @@ def takeScreenshot():
     
     myScreenshot.save(file_path)
 
-myButton = Button(root, text="Capture d\'ecran",command=takeScreenshot,bg='green',fg='white',font=10)
-myButton.place(x=800,y=600)
+myButton = Button(root, text="capture d\'ecran",command=takeScreenshot,bg='green',fg='white',font=10)
+myButton.place(x=750,y=550)
 
 
 
-titre_un=Label(root, text="CONSTRUCTION ou TERRAIN + CONSTRUCTION ou ACQUISITION BIEN IMMOBILIER", bg='orange',fg='white',font=10).place(x=100,y=25)
+titre_un=Label(root, text="CONSTRUCTION ou TERRAIN + CONSTRUCTION ou ACQUISITION BIEN IMMOBILIER", bg='orange',fg='white',font=10).place(x=400,y=25)
 
 cout_terrain = Label(root, text="Cout du terrain", bg='orange',fg='white',font=10)
 cout_construction = Label(root, text="Cout de la construction",bg='orange',fg='white',font=10)
@@ -112,7 +118,7 @@ def fifth_case():
 def remove_text():
     text.destroy()
 
-titre_DEUX=Label(root, text="Apport agent", font="arial 15 bold").place(x=100,y=200)
+titre_DEUX=Label(root, text="Apport agent", bg='orange',fg='white',font=10).place(x=650,y=200)
 
 apport_terrain = Label(root, text="Apport terrain",bg='orange',fg='white',font=10)
 apport_felson = Label(root, text="Apport Felson", bg='orange',fg='white',font=10)
@@ -153,11 +159,11 @@ atr_entry.place(x=400,y=450)
 
 #bouttons
 
-Button(text='sortie',bg='green',fg='white',font=10, command=coutApport).place(x=600,y=600)
-reset = Button(root,text='actualiser' ,bg='green',fg='white',font=10 ,command=remove_text)
-reset.place(x= 700,y=600)
+Button(text='sortie',bg='green',fg='white',font=10, width=10, command=coutApport).place(x=550,y=550)
+reset = Button(root,text='actualiser' ,bg='green',fg='white',font=10 , width=10,command=remove_text)
+reset.place(x= 650,y=550)
 
-Button(root,text='exit',command=lambda:exit(),bg='green',fg='white',font=10,width=0).place(x=400,y=650)
+Button(root,text='quitter',command=lambda:exit(),bg='green', fg='white',font=10,width=10).place(x=650,y=600)
 
 
 
