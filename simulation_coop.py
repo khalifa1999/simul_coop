@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import filedialog
 import pyautogui
 from PIL import ImageTk, Image
-import os
+import sys
 
 
 
@@ -20,13 +20,12 @@ panel = Label(root, image = img)
 panel.pack(side = "bottom", fill = "both", expand = "yes")
 
 
-
+def get_out():
+	sys.exit()
 
 def takeScreenshot():
     myScreenshot = pyautogui.screenshot()
-    
     file_path = filedialog.asksaveasfilename(defaultextension='.png')
-    
     myScreenshot.save(file_path)
 
 myButton = Button(root, text="capture d\'ecran",command=takeScreenshot,bg='green',fg='white',font=10)
@@ -163,7 +162,7 @@ Button(text='sortie',bg='green',fg='white',font=10, width=10, command=coutApport
 reset = Button(root,text='actualiser' ,bg='green',fg='white',font=10 , width=10,command=remove_text)
 reset.place(x= 650,y=550)
 
-Button(root,text='quitter',command=lambda:exit(),bg='green', fg='white',font=10,width=10).place(x=650,y=600)
+Button(root,text='quitter',command=get_out,bg='green', fg='white',font=10,width=10).place(x=650,y=600)
 
 
 
