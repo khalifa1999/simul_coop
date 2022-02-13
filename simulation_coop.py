@@ -95,27 +95,42 @@ def coutApport():
 
 	else:
 		fifth_case()
+global one, two, three, four
 def first_case():
 	#Label(text=f"l'apport agent {ca}", font='arial 20 bold',  bg='blue').place(x=600,y=350)
-	global text
-	text = Label(root,text=f"Avis favorable de financement.", font='arial 20 bold',  bg='green')
-	text.place(x=100,y=500)
+	global one
+	one = Label(root,text=f"Avis favorable de financement.", font='arial 20 bold',  bg='green')
+	one.place(x=100,y=500)
 
 def bis_scd():
-	global text
-	text = Label(root,text=f"financement refusé,total<90%. ", font='arial 20 bold',  bg='red')
-	text.place(x=100,y=500)
+	two = Label(root,text=f"financement refusé,total<90%. ", font='arial 20 bold',  bg='red')
+	two.place(x=100,y=500)
 def fourth_case():
-	global text
-	text = Label(root, text=f"financement refusé, apport agent<15% du cout projet.", font='arial 20 bold',  bg='red')
-	text.place(x=100,y=500)
+	three = Label(root, text=f"financement refusé, apport agent<15% du cout projet.", font='arial 20 bold',  bg='red')
+	three.place(x=100,y=500)
 def fifth_case():
-	global text
-	text = Label(root, text=f"financement refusé, apport global<40% cout projet.", font='arial 20 bold',  bg='red')
-	text.place(x=100,y=500)
+	global four
+	four = Label(root, text=f"financement refusé, apport global<40% cout projet.", font='arial 20 bold',  bg='red')
+	four.place(x=100,y=500)
 
 def remove_text():
-    text.destroy()
+    try:	
+    	four.destroy()
+    except:
+    	pass
+    try:	
+    	one.destroy()
+    except:
+    	pass
+    try:	
+    	two.destroy()
+    except:
+    	pass
+    try:	
+    	three.destroy()
+    except:
+    	pass
+  
 
 titre_DEUX=Label(root, text="Apport agent", bg='orange',fg='white',font=10).place(x=650,y=200)
 
