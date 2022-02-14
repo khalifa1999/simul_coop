@@ -76,8 +76,11 @@ def coutApport():
 	atr = int(atr_entry.get())
 	ca = at+af+pb+an+atr
 	apport_agent = ca-pb
-	apport_sonatel = cg/2
-	verif = (((apport_agent+apport_sonatel+pb)*100)/cg)
+	if(cg/2>=30000000):
+		apport_sonatel = 30000000
+	else:	
+		apport_sonatel = cg/2
+	verif = (((ca+apport_sonatel)*100)/cg)
 	perc = ((ca*100)/cg)
 	raj= ((40-perc)*cg)/100
 	rajout= ((90-verif)*cg)/100
@@ -85,7 +88,7 @@ def coutApport():
 			#Label(text=f"apport sonatel : {apport_sonatel}", font='arial 20 bold',  bg='orange').place(x=600,y=450)
 			#Label(text=f"apport agent(FINANCEMENT projet) : {apport_agent}", font='arial 20 bold',  bg='grey').place(x=600,y=500)
 	if(((ca*100)/cg)>=40):
-		if((((apport_agent+apport_sonatel+pb)*100)/cg)>=90):
+		if(verif>=90):
 			if(((apport_agent*100)/cg)>=15):
 				first_case()
 			else:
@@ -95,7 +98,7 @@ def coutApport():
 
 	else:
 		fifth_case()
-global one, two, three, four
+
 def first_case():
 	#Label(text=f"l'apport agent {ca}", font='arial 20 bold',  bg='blue').place(x=600,y=350)
 	global one
@@ -103,6 +106,7 @@ def first_case():
 	one.place(x=100,y=500)
 
 def bis_scd():
+	global two
 	two = Label(root,text=f"financement refusé,total<90%. ", font='arial 20 bold',  bg='red')
 	two.place(x=100,y=500)
 def fourth_case():
