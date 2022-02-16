@@ -3,9 +3,9 @@ from tkinter import filedialog
 import pyautogui
 from PIL import ImageTk, Image
 import sys
+import keyboard
 
-
-
+import re
 
 
 root=Tk()
@@ -19,6 +19,9 @@ img = ImageTk.PhotoImage(Image.open("nati.jpg"))
 panel = Label(root, image = img)
 panel.pack(side = "bottom", fill = "both", expand = "yes")
 
+#Affichage automatique
+
+
 
 def get_out():
 	sys.exit()
@@ -30,9 +33,50 @@ def takeScreenshot():
 
 myButton = Button(root, text="capture d\'ecran",command=takeScreenshot,bg='green',fg='white',font=10)
 myButton.place(x=750,y=550)
+first = ""
+scd =""
+third = ""
+cumul = 0
+cumulNode = Label(root, text=f"cout total : {cumul} ", bg='orange',fg='white',font=10)
+def  click(key):
+	global first, cumul, temp 
+	if keyboard.is_pressed('BackSpace'):
+		temp = first.rstrip(first[-1])
+		first = temp
+		print(first)
+	else:
+		first += key.char
+	node = Label(root, text=f"cout total : {first} ", bg='orange',fg='white',font=10)
+	node.place(x=700,y=100)
+	displayCumul()
+	# print(cumul)
+	# node = Label(root, text=f"cumul : {cumul} ", bg='orange',fg='white',font=10)
+	# node.place(x=700,y=400)
+def click_one(key):
+	global scd, cumul
+	scd += key.char
+	ex = Label(root, text=f"cout total : {scd} ", bg='orange',fg='white',font=10)
+	ex.place(x=800,y=100)
+	displayCumul()
 
+def displayCumul():
+	global cumulNode, scd, first
+	global cumul
+	if scd != "":
+		print("avant scd"+scd)
+		cumul+=int(scd)
+		print("apres scd"+scd)
+	if first != "":
+		print("avant first"+first)
+		cumul+=int(first)
+		print("apres first"+first)
 
+	cumulNode = Label(root, text=f"cout total : {cumul} ", bg='orange',fg='white',font=10)
+	cumulNode.place(x=700,y=300)
 
+def clear(label):
+
+	
 titre_un=Label(root, text="CONSTRUCTION ou TERRAIN + CONSTRUCTION ou ACQUISITION BIEN IMMOBILIER", bg='orange',fg='white',font=10).place(x=400,y=25)
 
 cout_terrain = Label(root, text="Cout du terrain", bg='orange',fg='white',font=10)
@@ -50,6 +94,13 @@ timeValue = StringVar(root, value = 0)
 ct_entry=Entry(root,textvariable=principalValue, bg='orange',fg='white',font=10)
 cc_entry=Entry(root,textvariable=rateValue, bg='orange',fg='white',font=10)
 ca_entry=Entry(root,textvariable=timeValue,bg='orange',fg='white',font=10)
+#Apport de l'agent et cout global live update
+
+
+
+ct_entry.bind('<Key>',click)
+cc_entry.bind('<Key>',click_one)
+#ca_entry.bind('<Key>',click_two)
 
 ct_entry.place(x=400,y=50)
 cc_entry.place(x=400,y=100)
@@ -57,8 +108,6 @@ ca_entry.place(x=400,y=160)
 
 
 
-
-#Apport de l'agent 
 
 
 
@@ -82,8 +131,11 @@ def coutApport():
 		apport_sonatel = cg/2
 	verif = (((ca+apport_sonatel)*100)/cg)
 	perc = ((ca*100)/cg)
-	raj= ((40-perc)*cg)/100
-	rajout= ((90-verif)*cg)/100
+	global quizaine, reste_quizaine, reste_quarante, reste_nonante
+	quizaine=((apport_agent*100)/cg)
+	reste_quizaine=((15-quizaine)*cg)/100
+	reste_quarante=((40-perc)*cg)/100
+	reste_nonante=((90-verif)*cg)/100
 	#if((((apport_agent+apport_sonatel+pb)*100)/cg)>=90):
 			#Label(text=f"apport sonatel : {apport_sonatel}", font='arial 20 bold',  bg='orange').place(x=600,y=450)
 			#Label(text=f"apport agent(FINANCEMENT projet) : {apport_agent}", font='arial 20 bold',  bg='grey').place(x=600,y=500)
@@ -105,17 +157,22 @@ def first_case():
 	one = Label(root,text=f"Avis favorable de financement.", font='arial 20 bold',  bg='green')
 	one.place(x=100,y=500)
 
+
+
 def bis_scd():
 	global two
-	two = Label(root,text=f"financement refusé,total<90%. ", font='arial 20 bold',  bg='red')
+	two = Label(root,text=f"financement refusé,total<90%. Il manque {reste_nonante}.", font='arial 20 bold',  bg='red')
 	two.place(x=100,y=500)
 def fourth_case():
-	three = Label(root, text=f"financement refusé, apport agent<15% du cout projet.", font='arial 20 bold',  bg='red')
+	global three
+	three = Label(root, text=f"financement refusé, apport agent<15% du cout projet. Il manque {reste_quizaine}.", font='arial 20 bold',  bg='red')
 	three.place(x=100,y=500)
 def fifth_case():
 	global four
-	four = Label(root, text=f"financement refusé, apport global<40% cout projet.", font='arial 20 bold',  bg='red')
+	four = Label(root, text=f"financement refusé, apport global<40% cout projet. Il manque {reste_quarante}.", font='arial 20 bold',  bg='red')
 	four.place(x=100,y=500)
+
+
 
 def remove_text():
     try:	
@@ -168,8 +225,9 @@ pb_entry.place(x=400,y=350)
 an_entry.place(x=400,y=400)
 atr_entry.place(x=400,y=450)
 
-#financement du projet
 
+
+#financement du projet
 
 
 
