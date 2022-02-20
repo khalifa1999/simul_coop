@@ -4,6 +4,7 @@ import pyautogui
 from PIL import ImageTk, Image
 import sys
 import keyboard
+from time import sleep
 
 import re
 
@@ -40,14 +41,8 @@ cumul = 0
 cumulNode = Label(root, text=f"cout total : {cumul} ", bg='orange',fg='white',font=10)
 def  click(key):
 	global first, cumul, temp 
-	if keyboard.is_pressed('BackSpace'):
-		temp = first.rstrip(first[-1])
-		first = temp
-		print(first)
-	else:
-		first += key.char
-	node = Label(root, text=f"cout total : {first} ", bg='orange',fg='white',font=10)
-	node.place(x=700,y=100)
+	first += key.char
+
 	displayCumul()
 	# print(cumul)
 	# node = Label(root, text=f"cumul : {cumul} ", bg='orange',fg='white',font=10)
@@ -55,28 +50,24 @@ def  click(key):
 def click_one(key):
 	global scd, cumul
 	scd += key.char
-	ex = Label(root, text=f"cout total : {scd} ", bg='orange',fg='white',font=10)
-	ex.place(x=800,y=100)
+	displayCumul()
+
+def click_two(key):
+	global third, cumul
+	third += key.char
 	displayCumul()
 
 def displayCumul():
-	global cumulNode, scd, first
+	global cumulNode, scd, first, third
 	global cumul
-	if scd != "":
-		print("avant scd"+scd)
-		cumul+=int(scd)
-		print("apres scd"+scd)
-	if first != "":
-		print("avant first"+first)
-		cumul+=int(first)
-		print("apres first"+first)
+	cumul = 0
+	cumul = int(first)+int(scd)+int(third)
 
 	cumulNode = Label(root, text=f"cout total : {cumul} ", bg='orange',fg='white',font=10)
-	cumulNode.place(x=700,y=300)
+	cumulNode.place(x=800,y=100)
 
-def clear(label):
 
-	
+
 titre_un=Label(root, text="CONSTRUCTION ou TERRAIN + CONSTRUCTION ou ACQUISITION BIEN IMMOBILIER", bg='orange',fg='white',font=10).place(x=400,y=25)
 
 cout_terrain = Label(root, text="Cout du terrain", bg='orange',fg='white',font=10)
@@ -100,6 +91,7 @@ ca_entry=Entry(root,textvariable=timeValue,bg='orange',fg='white',font=10)
 
 ct_entry.bind('<Key>',click)
 cc_entry.bind('<Key>',click_one)
+ca_entry.bind('<Key>',click_two)
 #ca_entry.bind('<Key>',click_two)
 
 ct_entry.place(x=400,y=50)
@@ -234,6 +226,8 @@ atr_entry.place(x=400,y=450)
 
 
 #bouttons
+
+
 
 Button(text='sortie',bg='green',fg='white',font=10, width=10, command=coutApport).place(x=550,y=550)
 reset = Button(root,text='actualiser' ,bg='green',fg='white',font=10 , width=10,command=remove_text)
